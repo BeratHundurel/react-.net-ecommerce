@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import { router } from "../router/Routes";
 
 axios.defaults.baseURL = "http://localhost:5000/api/";
+axios.defaults.withCredentials = true;
 
 const responseBody = (response: AxiosResponse) => response.data;
 axios.interceptors.response.use(
@@ -31,7 +32,7 @@ axios.interceptors.response.use(
         toast.error("You are not allowed to do that!");
         break;
       case 500:
-        router.navigate("/server-error",{state:{error:data}});
+        router.navigate("/server-error", { state: { error: data } });
         break;
       default:
         break;
@@ -52,6 +53,13 @@ const TestErrors = {
   get500Error: () => requests.get("buggy/server-error"),
   getValidationError: () => requests.get("buggy/validation-error"),
 };
+
+const Basket = {
+  get: () => requests.get("basket"),
+  addItem: (productId: number, quantity = 1) => axios.post(`basket?productId=${productId}&quantity=${quantity}`, {}),
+  removeItem: (productId: number, quantity = 1) => requests.delete(`basket?productId=${productId}&quantity=${quantity}`)
+};
+
 const Catalog = {
   list: () => requests.get("products"),
   details: (id: number) => requests.get(`products/${id}`),
@@ -59,5 +67,6 @@ const Catalog = {
 const agent = {
   Catalog,
   TestErrors,
+  Basket,
 };
 export default agent;

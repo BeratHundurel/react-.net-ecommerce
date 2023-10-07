@@ -7,18 +7,21 @@ import agent from "../../app/api/agent";
 import NotFound from "../../app/error/NotFound";
 import Loading from "../../app/layout/Loading";
 
+
 export default function ProductDetail() {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id: string; }>();
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     id && agent.Catalog.details(parseInt(id))
       .then(response => setProduct(response))
       .catch(error => console.log(error))
-      .finally(() => setLoading(false))
-  }, [id])
-  if (loading) return <Loading />
-  if (!product) return <NotFound />
+      .finally(() => setLoading(false));
+  }, [id]);
+  if (loading) return <Loading />;
+  if (!product) return <NotFound />;
+
   const productDetailTextContainerStyle = {
     display: "flex",
     alignItems: "center",
@@ -26,14 +29,14 @@ export default function ProductDetail() {
     mb: 2,
     fontSize: "16px",
     fontWeight: "700",
-  }
+  };
   const productDetailTextStyle = {
     color: "primary.dark",
     minWidth: "125px",
     mr: 3,
     fontSize: "15px",
     fontWeight: "500",
-  }
+  };
   const buttonStyle = {
     backgroundColor: "secondary.main",
     padding: "10px 20px",
@@ -42,10 +45,10 @@ export default function ProductDetail() {
     fontSize: "14px",
     fontWeight: "600",
     "&:hover": { color: "secondary.main", backgroundColor: "primary.main" }
-  }
+  };
   return (
     <Box sx={{ padding: "10% 15%" }}>
-      <Grid container spacing={5} >
+      <Grid container spacing={5}>
         <Grid item xs={4} sx={{ bgcolor: 'primary.light', borderRadius: '12px', backgroundSize: 'contain', padding: '5% !important' }}>
           <img src={product.pictureUrl} alt={product.name} style={{ width: '100%', height: '400px' }} />
         </Grid>
@@ -81,5 +84,5 @@ export default function ProductDetail() {
         </Grid>
       </Grid>
     </Box>
-  )
+  );
 }
