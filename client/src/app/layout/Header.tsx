@@ -17,14 +17,16 @@ interface Props {
     handleThemeChange: () => void;
 }
 const navStyles = {
-    color: "inherit",
-    typography: "h6",
-    "&:hover": { color: "grey.500" },
-    "&.active": { color: "text.secondary" },
+    color: "text.primary",
+    typography: "p",
+    "&:hover": { color: "primary.dark" },
+    "&.active": { color: "secondary.dark" },
+    fontSize: "14px",
+    fontWeight: "900",
 }
 export default function Header({ darkMode, handleThemeChange }: Props) {
     return (
-        <AppBar position="static" sx={{ mb: 5 }}>
+        <AppBar position="static" sx={{boxShadow:"unset"}}>
             <Toolbar className="Navbar">
                 <Box>
                     <Typography component={NavLink} to="/"
@@ -49,7 +51,7 @@ export default function Header({ darkMode, handleThemeChange }: Props) {
                         ))}</List>
                 </Box>
                 <Box display="flex" alignItems="center">
-                <IconButton size="large" color="inherit">
+                <IconButton size="medium" color="inherit">
                         <Badge badgeContent={4} color="secondary">
                             <ShoppingCart />
                         </Badge>
@@ -64,7 +66,6 @@ export default function Header({ darkMode, handleThemeChange }: Props) {
                             </ListItem>
                         ))}</List>
                 </Box>
-
             </Toolbar>
         </AppBar >
     )

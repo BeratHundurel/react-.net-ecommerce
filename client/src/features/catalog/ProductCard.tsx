@@ -1,4 +1,4 @@
-import { Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Typography } from "@mui/material";
+import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import { Product } from "../../app/models/product";
 import { Link } from "react-router-dom";
 
@@ -7,36 +7,21 @@ interface Props {
 }
 export default function ProductCard({ product }: Props) {
     return (
-        <Card>
-            <CardHeader
-                avatar={
-                    <Avatar sx={{ bgcolor: "secondary.main" }}>
-                        {product.name.charAt(0).toUpperCase()}
-                    </Avatar>
-                }
-                title={product.name}
-                titleTypographyProps={{
-                    sx: { fontWeight: 'bold' }
-                }}
-            />
-
+        <Card sx={{ boxShadow: "unset" }}>
             <CardMedia
-                sx={{ height: 140, backgroundSize: "contain", bgcolor: 'primary.light'}}
+                sx={{ height: 310, backgroundSize: "contain", bgcolor: 'primary.light', borderRadius: '12px' }}
                 image={product.pictureUrl}
                 title={product.name}
+                component={Link} to={`/catalog/${product.id}`}
             />
             <CardContent>
-                <Typography gutterBottom color="secondary" variant="h5">
+                <Typography sx={{ fontSize: "16px", textAlign: "center", color: "text.secondary", fontWeight: "500" }}>
+                    {product.name} - {product.brand} / {product.type}
+                </Typography>
+                <Typography sx={{ fontSize: "18px", textAlign: "center", color: "secondary.main", fontWeight: "600" , mt:1}}>
                     ${(product.price / 100).toFixed(2)}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
-                    {product.brand} / {product.type}
-                </Typography>
             </CardContent>
-            <CardActions>
-                <Button size="small">Share</Button>
-                <Button component ={Link} to={`/catalog/${product.id}`} size="small">View</Button>
-            </CardActions>
         </Card>
     );
 
