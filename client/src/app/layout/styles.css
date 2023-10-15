@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap");
 
 .Navbar {
     display: flex;
@@ -17,7 +17,7 @@ h4,
 h5,
 h6,
 span {
-    font-family: 'Poppins', sans-serif !important;
+    font-family: "Poppins", sans-serif !important;
 }
 
 .basket-container {
@@ -27,7 +27,7 @@ span {
     height: 150px;
     width: 100%;
     border-radius: 10px;
-    border: 3px solid #EFEFEF;
+    border: 3px solid #efefef;
     padding: 2.5%;
 }
 
@@ -58,4 +58,91 @@ span {
 
 .basket-description {
     width: 20%;
+}
+
+.basket-summary-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5% 15%;
+}
+
+.basket-coupon {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    min-height: 175px;
+}
+
+.basket-summary {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    min-height: 175px;
+}
+
+.basket-summary .main-title {
+    font-size: 16px;
+    font-weight: 700;
+    border-bottom: 1px solid rgb(69, 69, 69);
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.basket-box {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.basket-box p {
+    width: 40%;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+input.coupon-input {
+    width: 75%;
+    border-radius: 6px;
+    height: 45px;
+    border: 3px solid #EFEFEF;
+}
+
+input.coupon-input::placeholder {
+    padding: 2.5%;
+    font-size: 14px;
+    font-weight: 500;
+    color: #121212;
+}
+
+.coupon-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+button.coupon-btn {
+    width: 20%;
+    background-color: #007247;
+    color: #efefef;
+    border-radius: 6px;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.coupon-title {
+    padding-bottom: 20px;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+a.basket-login {
+    text-decoration: none;
+    color: #121212;
+    padding-top: 20px;
+    font-size: 14px;
+    font-weight: 500;
 }
