@@ -27,14 +27,14 @@ const navStyles = {
 }
 export default function Header({ darkMode, handleThemeChange }: Props) {
     const { basket } = useStoreContext();
-    console.log(basket);
-    const itemCount = basket?.items.reduce((sum, item) => sum + item.quantity, 0);
+    const itemCount = basket?.items?.reduce((sum, item) => sum + item.quantity, 0);
     return (
         <AppBar position="static" sx={{ boxShadow: "unset" }}>
             <Toolbar className="Navbar">
                 <Box>
                     <Typography component={NavLink} to="/"
-                        sx={{ color: "inherit", typography: "h6", textDecoration: "none" }}
+                        sx={{ color: "inherit", textDecoration: "none" }}
+                        variant="h6"
                     >
                         News
                     </Typography>

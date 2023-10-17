@@ -25,6 +25,7 @@ export default function BasketSummary() {
                     <p>Total</p>
                     <p>{currencyFormat(Total)}</p>
                 </div>
+                <a href="/checkout" className="checkout-btn">Proceed to Checkout</a>
             </div>
         </div>
     )

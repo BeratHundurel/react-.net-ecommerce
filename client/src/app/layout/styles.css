@@ -72,14 +72,14 @@ span {
     width: 40%;
     display: flex;
     flex-direction: column;
-    min-height: 175px;
+    min-height: 225px;
 }
 
 .basket-summary {
     width: 40%;
     display: flex;
     flex-direction: column;
-    min-height: 175px;
+    min-height: 225px;
 }
 
 .basket-summary .main-title {
@@ -131,6 +131,7 @@ button.coupon-btn {
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
+    height: 45px;
 }
 
 .coupon-title {
@@ -145,4 +146,20 @@ a.basket-login {
     padding-top: 20px;
     font-size: 14px;
     font-weight: 500;
+}
+
+.checkout-btn {
+    height: 45px;
+    width: 50%;
+    background-color: #007247;
+    color: #efefef;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 6px;
+    border: none;
+    margin-top: 5%;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
