@@ -6,19 +6,20 @@ import { Add, FavoriteBorder, Remove, Share } from "@mui/icons-material";
 import agent from "../../app/api/agent";
 import NotFound from "../../app/error/NotFound";
 import Loading from "../../app/layout/Loading";
-import { useStoreContext } from "../../app/context/StoreContext";
 import { LoadingButton } from "@mui/lab";
+import { useAppDispatch, useAppSelector } from "../../app/store/configureStore";
+import { removeItem, setBasket } from "../basket/basketSlice";
 
 
 export default function ProductDetail() {
-  const { basket, setBasket, removeItem } = useStoreContext();
+  const { basket } = useAppSelector(state => state.basket);
+  const dispatch = useAppDispatch();
   const { id } = useParams<{ id: string; }>();
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(0);
   const [submitting, setSubmitting] = useState(false);
   const item = basket?.items?.find(i => i.productId === product?.id);
-  console.log(item);
 
   useEffect(() => {
     if (item) setQuantity(item.quantity);
@@ -43,14 +44,14 @@ export default function ProductDetail() {
     if (!item || quantity > item.quantity) {
       const updatedQuantity = item ? quantity - item.quantity : quantity;
       agent.Basket.addItem(product.id, updatedQuantity)
-        .then(basket => setBasket(basket.value))
+        .then(basket => dispatch(setBasket(basket.value)))
         .catch(error => console.log(error))
         .finally(() => setSubmitting(false));
     }
     else {
       const updatedQuantity = item.quantity - quantity;
-      agent.Basket.removeItem(product.id, updatedQuantity)
-        .then(() => removeItem(product.id, updatedQuantity))
+      agent.Basket.removeItem(product?.id!, updatedQuantity)
+        .then(() => dispatch(removeItem({ productId: product.id, updatedQuantity })))
         .catch(error => console.log(error))
         .finally(() => setSubmitting(false));
     }
