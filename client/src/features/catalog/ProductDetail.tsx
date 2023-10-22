@@ -1,32 +1,28 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Product } from "../../app/models/product";
 import { Box, Divider, Grid, Typography } from "@mui/material";
 import { Add, FavoriteBorder, Remove, Share } from "@mui/icons-material";
-import agent from "../../app/api/agent";
 import NotFound from "../../app/error/NotFound";
 import Loading from "../../app/layout/Loading";
 import { LoadingButton } from "@mui/lab";
 import { useAppDispatch, useAppSelector } from "../../app/store/configureStore";
 import { addBasketItemAsync, removeBasketItemAsync } from "../basket/basketSlice";
+import { fetchProductAsync, productSelectors } from "./catalogSlice";
 
 
 export default function ProductDetail() {
-  const { basket } = useAppSelector(state => state.basket);
+  const { basket, status } = useAppSelector(state => state.basket);
+  const { status: productStatus } = useAppSelector(state => state.catalog);
   const dispatch = useAppDispatch();
   const { id } = useParams<{ id: string; }>();
-  const [product, setProduct] = useState<Product | null>(null);
-  const [loading, setLoading] = useState(true);
+  const product = useAppSelector(state => productSelectors.selectById(state, id!))
   const [quantity, setQuantity] = useState(0);
   const item = basket?.items?.find(i => i.productId === product?.id);
 
   useEffect(() => {
     if (item) setQuantity(item.quantity);
-    id && agent.Catalog.details(parseInt(id))
-      .then(response => setProduct(response))
-      .catch(error => console.log(error))
-      .finally(() => setLoading(false));
-  }, [id, item]);
+    if (!product && id) dispatch(fetchProductAsync(parseInt(id)));
+  }, [id, item, dispatch, product]);
 
   function handleIncrement() {
     setQuantity(quantity + 1);
@@ -48,7 +44,7 @@ export default function ProductDetail() {
     }
   }
 
-  if (loading) return <Loading message="Loading product..." />;
+  if (productStatus.includes("pending")) return <Loading message="Loading product..." />;
   if (!product) return <NotFound />;
 
   const productDetailTextContainerStyle = {
@@ -109,7 +105,7 @@ export default function ProductDetail() {
             <Box sx={{ border: "2px solid #007247", borderRadius: "10px", width: "45px", height: "45px", display: "flex", justifyContent: "center", alignItems: "center" }}>
               <FavoriteBorder />
             </Box>
-            <LoadingButton loading={status === "pending"} onClick={handleUpdateCart} sx={buttonStyle}>Add to Cart</LoadingButton>
+            <LoadingButton loading={status.includes("pending")} onClick={handleUpdateCart} sx={buttonStyle}>Add to Cart</LoadingButton>
           </Box>
         </Grid>
       </Grid>
