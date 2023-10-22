@@ -8,7 +8,7 @@ import NotFound from "../../app/error/NotFound";
 import Loading from "../../app/layout/Loading";
 import { LoadingButton } from "@mui/lab";
 import { useAppDispatch, useAppSelector } from "../../app/store/configureStore";
-import { removeItem, setBasket } from "../basket/basketSlice";
+import { addBasketItemAsync, removeBasketItemAsync } from "../basket/basketSlice";
 
 
 export default function ProductDetail() {
@@ -18,7 +18,6 @@ export default function ProductDetail() {
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(0);
-  const [submitting, setSubmitting] = useState(false);
   const item = basket?.items?.find(i => i.productId === product?.id);
 
   useEffect(() => {
@@ -39,21 +38,13 @@ export default function ProductDetail() {
   }
 
   function handleUpdateCart() {
-    if (!product) return;
-    setSubmitting(true);
     if (!item || quantity > item.quantity) {
       const updatedQuantity = item ? quantity - item.quantity : quantity;
-      agent.Basket.addItem(product.id, updatedQuantity)
-        .then(basket => dispatch(setBasket(basket.value)))
-        .catch(error => console.log(error))
-        .finally(() => setSubmitting(false));
+      dispatch(addBasketItemAsync({ productId: product?.id!, quantity: updatedQuantity }))
     }
     else {
       const updatedQuantity = item.quantity - quantity;
-      agent.Basket.removeItem(product?.id!, updatedQuantity)
-        .then(() => dispatch(removeItem({ productId: product.id, updatedQuantity })))
-        .catch(error => console.log(error))
-        .finally(() => setSubmitting(false));
+      dispatch(removeBasketItemAsync({ productId: product?.id!, quantity: updatedQuantity }))
     }
   }
 
@@ -118,7 +109,7 @@ export default function ProductDetail() {
             <Box sx={{ border: "2px solid #007247", borderRadius: "10px", width: "45px", height: "45px", display: "flex", justifyContent: "center", alignItems: "center" }}>
               <FavoriteBorder />
             </Box>
-            <LoadingButton loading={submitting} onClick={handleUpdateCart} sx={buttonStyle}>Add to Cart</LoadingButton>
+            <LoadingButton loading={status === "pending"} onClick={handleUpdateCart} sx={buttonStyle}>Add to Cart</LoadingButton>
           </Box>
         </Grid>
       </Grid>

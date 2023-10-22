@@ -93,7 +93,7 @@ namespace API.Controllers
         {
             return User.Identity?.Name ?? Request.Cookies["buyerId"];
         }
-        public static ActionResult<BasketDto> MapBasketToDto(Basket basket)
+        private static BasketDto MapBasketToDto(Basket basket)
         {
             return new BasketDto
             {
