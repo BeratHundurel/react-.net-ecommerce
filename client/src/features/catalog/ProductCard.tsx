@@ -21,7 +21,7 @@ export default function ProductCard({ product }: Props) {
                 title={product.name}
                 component={Link} to={`/catalog/${product.id}`}
             />
-            <CardContent>
+            <CardContent sx={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center"}}>
                 <Typography sx=
                     {{ fontSize: "16px", textAlign: "center", color: "text.secondary", fontWeight: "500" }}>
                     {product.name} - {product.brand} / {product.type}
@@ -30,7 +30,7 @@ export default function ProductCard({ product }: Props) {
                     {{ fontSize: "18px", textAlign: "center", color: "secondary.main", fontWeight: "600", mt: 1 }}>
                     ${(product.price / 100).toFixed(2)}
                 </Typography>
-                <LoadingButton loading={status ==="pendingAddItem" + product.id} onClick={() => dispatch(addBasketItemAsync({ productId: product.id }))} sx={{ mt: 2 }} variant="contained">Add to Cart</LoadingButton>
+                <LoadingButton loading={status ==="pendingAddItem" + product.id} onClick={() => dispatch(addBasketItemAsync({ productId: product.id }))} sx={{ mt: 2, width:"75%" }} variant="contained">Add to Cart</LoadingButton>
             </CardContent>
         </Card>
     );
