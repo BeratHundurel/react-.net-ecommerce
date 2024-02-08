@@ -26,10 +26,6 @@ namespace API.Controllers
             PagedList<Product> products = await PagedList<Product>.ToPagedList(query, productParams.PageNumber, productParams.PageSize);
             Response.AddPaginationHeader(products.MetaData);
             return products;
-            // if (products == null)
-            //     return NotFound();
-            // else
-            //     return Ok(products);
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
