@@ -10,7 +10,7 @@ interface StoreContextValue {
 export const StoreContext = createContext<StoreContextValue | undefined>(undefined);
 
 export function useStoreContext() {
-    let context = useContext(StoreContext);
+    const context = useContext(StoreContext);
 
     if (context === undefined) {
         throw Error('Oops - we do not seem to be inside the provider');

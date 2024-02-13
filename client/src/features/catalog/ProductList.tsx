@@ -6,7 +6,6 @@ interface Props {
     products: Product[];
 }
 export default function ProductList({ products }: Props) {
-    console.log("whyyyyy")
     return (
         <Grid container spacing={3} sx={{ mb: 5}}>
             {products.map(product => (
@@ -16,5 +15,4 @@ export default function ProductList({ products }: Props) {
             ))}
         </Grid>
     )
-
 }
