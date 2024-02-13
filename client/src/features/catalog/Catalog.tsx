@@ -4,19 +4,8 @@ import ProductList from "./ProductList";
 import { useEffect } from "react";
 import { fetchFilters, fetchProductsAsync, productSelectors } from "./catalogSlice";
 import Grid from "@mui/material/Grid";
-import {
-   Box,
-   Checkbox,
-   FormControl,
-   FormControlLabel,
-   FormGroup,
-   Pagination,
-   Paper,
-   Radio,
-   RadioGroup,
-   TextField,
-   Typography,
-} from "@mui/material";
+import { Box, Checkbox, FormControl, FormControlLabel, FormGroup, Pagination, Paper, Radio, RadioGroup, Typography } from "@mui/material";
+import ProductSearch from "./ProductSearch";
 
 export default function Catolog() {
    const products = useAppSelector(productSelectors.selectAll);
@@ -42,7 +31,7 @@ export default function Catolog() {
       <Grid container spacing={5} sx={{ padding: "7.5% 5%" }}>
          <Grid item xs={3}>
             <Paper sx={{ p: 2, mb: 2 }} elevation={0}>
-               <TextField label="Search" fullWidth />
+               <ProductSearch />
             </Paper>
             <Paper sx={{ mb: 2, p: 2 }} elevation={0}>
                <FormControl>
