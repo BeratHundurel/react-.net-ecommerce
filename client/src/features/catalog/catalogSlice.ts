@@ -75,7 +75,7 @@ function initParams(): ProductParams {
 }
 export const catalogSlice = createSlice({
    name: "catalog",
-   initialState: productsAdapter.getInitialState({
+   initialState: productsAdapter.getInitialState<CatalogState>({
       productsLoaded: false,
       filtersLoaded: false,
       status: "idle",
@@ -100,8 +100,9 @@ export const catalogSlice = createSlice({
          state.status = "pendingFetchProducts";
       });
       builder.addCase(fetchProductsAsync.fulfilled, (state, action) => {
+         state.productsLoaded = true;
          productsAdapter.setAll(state, action.payload);
-         (state.status = "idle"), (state.productsLoaded = true);
+         state.status = "idle";
       });
       builder.addCase(fetchProductsAsync.rejected, (state, action) => {
          console.log(action.payload);
@@ -122,10 +123,10 @@ export const catalogSlice = createSlice({
          state.status = "pendingFetchFilters";
       });
       builder.addCase(fetchFilters.fulfilled, (state, action) => {
+         state.filtersLoaded = true;
          state.brands = action.payload.brands;
          state.types = action.payload.types;
          state.status = "idle";
-         state.filtersLoaded = true;
       });
       builder.addCase(fetchFilters.rejected, (state) => {
          state.status = "idle";

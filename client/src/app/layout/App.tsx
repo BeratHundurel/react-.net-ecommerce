@@ -12,7 +12,7 @@ import { setBasket } from "../../features/basket/basketSlice";
 
 function App() {
   const dispatch = useAppDispatch();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const buyerId = getCookie("buyerId");
     if (buyerId) {
